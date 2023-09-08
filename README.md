@@ -1,29 +1,35 @@
 # EmotionLib
-## Simple dynamic library for video sentiment recognition
-### Made using Caffe  
-### Functions list:  
-__- float* make(const char* path, double N, struct progress* bar)__, where **progress** is struct{int,int} to check the current progress of recognition  
-_Returns a float array pointer with positivity values for each __N__-th frame of video in **path**, first array element is database size_
+## Simple Dynamic Library for Video Sentiment Recognition
 
+![Demo 1](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/1.png) ![Demo 2](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/2.png)
 
-You can use N = 0 for automatic frame rate detection. In this case, the function will take one frame for every second of the video  
+**EmotionLib** is a dynamic library designed for video sentiment recognition, written entirely in pure C. This library allows you to analyze the emotions expressed in a sequence of video frames. Please note that it is currently in the BETA stage and supports only single-threaded operation.
 
-__- int clean(float* res)__  
-_To clean up an array with coefficients_
+## Features
 
-### C# Import Example:
-        [StructLayout(LayoutKind.Sequential)]
-        public struct progress
-        {
-            public int cur;
-            public int end;
-        };
-        [DllImport("EmotionLib.dll")]
-        public static extern IntPtr make([MarshalAs(UnmanagedType.LPStr)] string path, double N, ref progress bar);
-        [DllImport("EmotionLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int clean(IntPtr ptr);
-### Demo
-![alt text](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/1.png)
-![alt text](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/2.png)
-### TODO:
-**- Audio sentiment recognition**
+- Analyze video sentiment based on a sequence of frames
+- Provides a C# import example for easy integration
+- Progress tracking for recognition
+- Pure C implementation
+
+## Functionality
+
+### `void videoSentiment(const float frames[][3][224][224], int num_frames, float tensor_predictions[][4], int* progress)`
+
+- `frames`: A tensor-array containing video frames.
+- `num_frames`: The number of frames in the video.
+- `tensor_predictions`: Output for the sentiment predictions.
+- `progress`: An integer pointer to track recognition progress.
+
+## Usage in C#
+
+Here is an example of how to import the EmotionLib in C#:
+
+```csharp
+[DllImport("emotionLib.dll", CallingConvention = CallingConvention.Cdecl)]
+public static extern void videoSentiment([In, Out] float[,,,] frames, int num_frames, [In, Out] float[,] tensor_predictions, IntPtr progress);
+```
+
+## TODO
+
+- Multithreading support

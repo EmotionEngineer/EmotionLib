@@ -95,6 +95,22 @@ Before building the libraries, you need to download and set up the model weights
   public static extern void positiveness_Inference([In, Out] float[,,] frame, [In, Out] float[] result);
   ```
 
+### Input and Output Format Guide
+
+#### Required Input Arrays
+
+##### `filter.dll`:
+- **Single Frame Processing**: 
+  - Input size: `3x224x224` (channels x height x width)
+- **Multiple Frames Processing**: 
+  - Input size: `Nx3x224x224` (batch size x channels x height x width)
+
+##### `positiveness.dll`:
+- **Single Frame Processing**: 
+  - Input size: `3x256x256` (channels x height x width)
+- **Multiple Frames Processing**: 
+  - Input size: `Nx3x256x256` (batch size x channels x height x width)
+
 #### Understanding the `filter.dll` Output
 
 The `filter.dll` output is an array of probabilities representing the likelihood that an image falls into one of three content categories:

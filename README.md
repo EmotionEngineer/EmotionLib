@@ -111,7 +111,7 @@ Before building the libraries, you need to download and set up the model weights
 - **Multiple Frames Processing**: 
   - Input size: `Nx3x256x256` (batch size x channels x height x width)
 
-#### Understanding the `filter.dll` Output
+#### Understanding `filter` Output
 
 The `filter.dll` output is an array of probabilities representing the likelihood that an image falls into one of three content categories:
 - **Safe Content**: The probability that the image is free from sensitive material and is safe for viewing.
@@ -124,7 +124,7 @@ Each element in the array is a number between **0** and **1**:
 
 #### Understanding `positiveness` Output
 
-The `positiveness` output value is a floating-point number ranging from **0** to **1**, representing the positivity of the content within a video frame:
+The `positiveness.dll` output value is a floating-point number ranging from **0** to **1**, representing the positivity of the content within a video frame:
 - **0**: Indicates the content is **absolutely positive**, with no negative emotions detected.
 - **1**: Represents **absolutely negative** content, suggesting strong negative emotions.
 

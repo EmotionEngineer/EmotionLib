@@ -43,7 +43,7 @@ The library consists of two main components:
 
 Before building the libraries, you need to download and set up the model weights headers:
 
-1. Download the `weight_headers.zip` file from the [GitHub Releases](https://github.com/EmotionEngineer/EmotionLib/releases) page.
+1. Download the `weights_headers.zip` file from the [GitHub Releases](https://github.com/EmotionEngineer/EmotionLib/releases) page.
 2. Extract the contents of the zip file, which should include:
    - `filter/filter_weights.c`
    - `positiveness/positiveness_weights.c`

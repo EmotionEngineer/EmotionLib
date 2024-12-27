@@ -1,48 +1,21 @@
-**LICENSE AGREEMENT**
+MIT License
 
-This License Agreement ("Agreement") is entered into between Primitives LTD ("Licensor") and the user ("Licensee"). By using the code and product provided by Licensor, Licensee agrees to the terms and conditions outlined in this Agreement.
+Copyright (c) 2024 EmotionEngineer
 
-**1. License Grant**
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Licensor hereby grants Licensee a non-exclusive, non-transferable, and revocable license to use the code and product, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-**2. Use Restrictions**
-
-Licensee may use the code and product solely for non-commercial purposes. Non-commercial use includes personal, educational, and non-profit activities.
-
-**3. Attribution**
-
-Licensee shall provide proper attribution to Primitives LTD in any use of the code and product. Attribution shall be prominently displayed in a manner specified by Licensor and include the name "Primitives LTD."
-
-**4. Commercial Use**
-
-For any commercial use of the code and product, including but not limited to, commercial distribution, resale, or incorporation into a commercial product or service, Licensee must obtain written permission from Primitives LTD by contacting rgexacku@ya.ru. Commercial use without such permission is strictly prohibited.
-
-**5. Modifications**
-
-Licensee may modify the code and product for personal use or internal testing. However, any distribution or publication of modified versions is subject to the terms of this Agreement.
-
-**6. Termination**
-
-Licensor reserves the right to terminate this license at any time if Licensee breaches any of its terms. Upon termination, Licensee must immediately cease all use of the code and product and destroy any copies in their possession.
-
-**7. No Warranty**
-
-The code and product are provided "as is," without any warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement.
-
-**8. Limitation of Liability**
-
-Licensor shall not be liable for any damages, including but not limited to direct, indirect, incidental, special, or consequential damages, arising out of the use or inability to use the code and product.
-
-**9. Governing Law**
-
-This Agreement shall be governed by and construed in accordance with the laws of the Russian Federation.
-
-**10. Entire Agreement**
-
-This Agreement constitutes the entire agreement between Licensor and Licensee regarding the subject matter herein and supersedes all prior agreements and understandings, whether oral or written.
-
-By using the code and product, Licensee acknowledges that they have read and understood this Agreement and agree to be bound by its terms.
-
-**Signature:** Primitives LTD
-**Date:** 08.09.2023
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

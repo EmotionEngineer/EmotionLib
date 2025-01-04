@@ -7,7 +7,7 @@
 # define FILTER_API_EXPORT  __attribute__((visibility("default")))
 #endif
 
-typedef float ModelInput[3][224][224]; // NCHW
+typedef float ModelInput[3][224][224]; // NCHW RGB, Min-Max weights scale [0..1]
 typedef float ModelOut[3];
 
 // Model inference

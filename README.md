@@ -4,7 +4,7 @@
 ![Demo 1](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/1.png)
 ![Demo 2](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/2.png)
 
-**EmotionLib** is a robust C library designed for media content analysis. It identifies and blocks unsafe content while enhancing recommendations for safe media. By classifying content and analyzing emotional tone, EmotionLib provides deeper insights into media sentiment and ensures a safer, more engaging user experience.
+**EmotionLib** is a robust C library designed for media content analysis. It identifies and blocks unsafe content while enhancing recommendations for safe media. By classifying content and analyzing emotional tone, solution provides deeper insights into media sentiment and ensures a safer, more engaging user experience.
 
 #### Key Features
 

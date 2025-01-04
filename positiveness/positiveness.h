@@ -7,7 +7,7 @@
 # define POSITIVENESS_API_EXPORT  __attribute__((visibility("default")))
 #endif
 
-typedef float ModelInput[3][227][227]; // NCHW BGR
+typedef float ModelInput[3][227][227]; // NCHW BGR, ImageNet weights scale ≈ [0..128]
 typedef float ModelOut[2];
 
 // Model inference

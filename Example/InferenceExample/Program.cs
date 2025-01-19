@@ -357,9 +357,9 @@ class Program
         var classMapping = new (string Label, double Threshold)[]
         {
             ("G", 0.0),
-            ("PG", 0.1),
-            ("PG-13", 0.2),
-            ("R", 0.5),
+            ("PG", 0.07),
+            ("PG-13", 0.17),
+            ("R", 0.47),
         };
 
         // Find the closest class

@@ -353,30 +353,22 @@ class Program
     }
     private static string GetMpaaRating(double rating)
     {
-        // Define the class mapping
-        var classMapping = new (string Label, double Threshold)[]
+        if (rating < 0.0796)
         {
-            ("G", 0.0),
-            ("PG", 0.07),
-            ("PG-13", 0.17),
-            ("R", 0.47),
-        };
-
-        // Find the closest class
-        string closestClass = "R"; // Default to R if no match is found
-        double minDifference = double.MaxValue;
-
-        foreach (var (label, threshold) in classMapping)
-        {
-            double difference = Math.Abs(rating - threshold);
-            if (difference < minDifference)
-            {
-                minDifference = difference;
-                closestClass = label;
-            }
+            return "G";
         }
-
-        return closestClass;
+        else if (rating < 0.216)
+        {
+            return "PG";
+        }
+        else if (rating < 0.464)
+        {
+            return "PG-13";
+        }
+        else
+        {
+            return "R";
+        }
     }
     public static void ClassifyVideo(string videoName)
     {

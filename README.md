@@ -146,6 +146,32 @@ The `positiveness.dll` produces probabilities for two distinct classes [**Negati
 - A high probability for **Positivity** indicates predominantly positive emotions.  
 - A high probability for **Negativity** suggests the content leans toward negative emotions.
 
+### Model Training and Customization  
+
+EmotionLib enables fine-tuning of the **`samp`** model component to adapt it to specific content moderation requirements. The **`samp`** model integrates two subcomponents:  
+- An **LSTM network** for detecting unsafe content (NSFW/Gore)  
+- An **MLP (Multi-Layer Perceptron)** for predicting MPAA ratings  
+
+These models operate sequentially as follows:  
+1. **LSTM Safety Check**:  
+   The LSTM analyzes frame predictions from both **`filter.dll`** and **`positiveness.dll`** to flag unsafe videos (e.g., NSFW/Gore content). Videos triggering this check are automatically blocked.  
+2. **MPAA Rating Prediction**:  
+   Videos that pass the LSTM safety check are processed by the MLP, which predicts MPAA ratings using outputs from the same **`filter.dll`** and **`positiveness.dll`** components.  
+
+#### Example Training Notebooks  
+Explore notebooks for training these models:  
+- **LSTM Training for NSFW/Gore Detection**:  
+  [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train)  
+- **MLP Training for MPAA Rating Prediction**:  
+  [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)  
+
+#### Important Notes  
+- **`filter` and `positiveness` Models**:  
+  The original training datasets for these components were **permanently deleted** to comply with legal regulations concerning sensitive content. As a result, **retraining or fine-tuning these models is not permitted**. They remain static to ensure safety and regulatory compliance.  
+
+- **Customization Scope**:  
+  Only the **`samp`** component (LSTM + MLP) is available for customization. Ensure your training data adheres to ethical guidelines.  
+
 ### License
 
 EmotionLib is now released under the **MIT License**, allowing complete freedom for both personal and commercial use. See the `LICENSE` file for details.

@@ -1,4 +1,16 @@
-override BIN := positiveness.dll
+ifeq ($(OS),Windows_NT) # Windows
+  SHLIB_EXT := dll
+else
+  # for everything else use uname
+  UNAME_S  := $(shell uname -s)
+  ifeq ($(UNAME_S),Darwin)          # macOS
+    SHLIB_EXT := dylib
+  else                              # Linux, *BSD, ...
+    SHLIB_EXT := so
+  endif
+endif
+
+override BIN := positiveness.$(SHLIB_EXT)
 override SRC := positiveness.c positiveness_activation.c positiveness_model.c positiveness_tensor.c positiveness_weights.c
 override OBJ := $(SRC:%=%.o)
 override DEP := $(SRC:%=%.d)

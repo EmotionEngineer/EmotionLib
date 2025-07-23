@@ -3,8 +3,21 @@ CC := gcc
 CFLAGS := -fPIC -Wall -Wextra -Ofast -Iinclude
 LDFLAGS := -shared
 
+# Select extension
+ifeq ($(OS),Windows_NT) # Windows
+  SHLIB_EXT := dll
+else
+  # for everything else use uname
+  UNAME_S  := $(shell uname -s)
+  ifeq ($(UNAME_S),Darwin)          # macOS
+    SHLIB_EXT := dylib
+  else                              # Linux, *BSD, ...
+    SHLIB_EXT := so
+  endif
+endif
+
 # Source files and output binary
-BIN := samp.dll # Safeness And MPAA / EmotionLib
+override BIN := samp.$(SHLIB_EXT) # Safeness And MPAA / EmotionLib
 SRC := main.c \
       src/mlp_common.c \
       src/mlp_model1.c \

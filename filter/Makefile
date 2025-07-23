@@ -1,4 +1,16 @@
-override BIN := filter.dll
+ifeq ($(OS),Windows_NT) # Windows
+  SHLIB_EXT := dll
+else
+  # for everything else use uname
+  UNAME_S  := $(shell uname -s)
+  ifeq ($(UNAME_S),Darwin)          # macOS
+    SHLIB_EXT := dylib
+  else                              # Linux, *BSD, ...
+    SHLIB_EXT := so
+  endif
+endif
+
+override BIN := filter.$(SHLIB_EXT)
 override SRC := filter.c filter_activation.c filter_model.c filter_tensor.c filter_weights.c
 override OBJ := $(SRC:%=%.o)
 override DEP := $(SRC:%=%.d)

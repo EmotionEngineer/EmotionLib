@@ -10,6 +10,7 @@
 #include "include/mlp_model1.h"
 #include "include/mlp_model2.h"
 #include "include/mlp_model3.h"
+#include "include/mlp_model4.h"
 #include "include/lstm_filter_model.h"
 #include "include/mlp_mpaa_model.h"
 
@@ -126,15 +127,15 @@ void extract_features(double* epp_data, double* efp_data, int framesCount, int f
 	features[52] = frame_sec_interval; // Frame capture interval
 }
 
-double inference(MLPModel* model, double* features, double* mean, double* scale) {
-    double* transformed_features = transform_data(features, mean, scale, NUM_FEATURES_SAFE);
+double inference(MLPModel* model, double* features, double* mean, double* scale, int featuresCount) {
+    double* transformed_features = transform_data(features, mean, scale, featuresCount);
     double result = predict(model, transformed_features);
     free(transformed_features);
     return result;
 }
 
-void inference_intermediate(MLPModel* model, double* features, double* mean, double* scale, double* intermediate_output) {
-    double* transformed_features = transform_data(features, mean, scale, NUM_FEATURES_SAFE);
+void inference_intermediate(MLPModel* model, double* features, double* mean, double* scale, double* intermediate_output, int featuresCount) {
+    double* transformed_features = transform_data(features, mean, scale, featuresCount);
     double* intermediate = predict_intermediate(model, transformed_features);
     memcpy(intermediate_output, intermediate, model->network_sizes[model->n_layers - 2] * sizeof(double));
     free(transformed_features);
@@ -166,46 +167,7 @@ DLLEXPORT double predictSAMP(const char* epp_path, const char* efp_path) {
     double featuresSafeness[NUM_FEATURES_SAFE];
     extract_features(epp_data, efp_data, num_frames, frame_sec_interval, featuresSafeness);
 	
-    // Intermediate inference MLP models
-    double intermediate_output1[9];
-    double intermediate_output2[3];
-    double intermediate_output3[18];
-    inference_intermediate(&model1, featuresSafeness, std_mean_mlp1, std_scale_mlp1, intermediate_output1);
-    inference_intermediate(&model2, featuresSafeness, std_mean_mlp2, std_scale_mlp2, intermediate_output2);
-    inference_intermediate(&model3, featuresSafeness, std_mean_mlp3, std_scale_mlp3, intermediate_output3);
-
-    // Copy results
-	static double mlp_output[30]; // Intermediate for 3 different MLPs
-    memcpy(mlp_output, intermediate_output1, sizeof(intermediate_output1));
-    memcpy(mlp_output + 9, intermediate_output2, sizeof(intermediate_output2));
-    memcpy(mlp_output + 12, intermediate_output3, sizeof(intermediate_output3));
-	
-    // Allocate temporary arrays with proper sizes for LSTM function call
-    double tensor_combined_input[50][1][4] = {0};
-    double tensor_mlp_output[1][30] = {0};
-
-    // Fill tensor_combined_input (concatenation of EFP and EPP)
-    for (int i = 0; i < 50; i++) {
-        for (int j = 0; j < 3; j++) {
-            tensor_combined_input[i][0][j] = efp_center[j][i];
-        }
-        tensor_combined_input[i][0][3] = epp_center[i];
-    }
-
-    // Fill tensor_mlp_output
-    for (int i = 0; i < 30; i++) {
-        tensor_mlp_output[0][i] = mlp_output[i];
-    }
-
-    // Predict safeness (binary classification: 0.0 - safe, 1.0 - unsafe)
-    double safeness_score = predictSafeness(tensor_combined_input, tensor_mlp_output);
-
-    // If the content is unsafe (safeness_score > 0.5), block it by returning 2.0
-    if (safeness_score > 0.5) {
-        return 2.0; // Special value indicating the content should be blocked
-    }
-
-    // Otherwise, predict the MPAA rating
+	// Extract features for MPAA prediction
 	double featuresMPAA[NUM_FEATURES_MPAA];
 	int new_index = 0;
 
@@ -217,7 +179,51 @@ DLLEXPORT double predictSAMP(const char* epp_path, const char* efp_path) {
 	    // Select features for MPAA prediction model
 	    featuresMPAA[new_index++] = featuresSafeness[i];
 	}
-    double mpaa_rating = inference(&mpaa_model, featuresMPAA, std_mean_mpaa, std_scale_mpaa);
+	
+    // Intermediate inference MLP models
+    double intermediate_output1[9];
+    double intermediate_output2[3];
+    double intermediate_output3[18];
+	double intermediate_output4[20];
+    inference_intermediate(&model1, featuresSafeness, std_mean_mlp1, std_scale_mlp1, intermediate_output1, NUM_FEATURES_SAFE);
+    inference_intermediate(&model2, featuresSafeness, std_mean_mlp2, std_scale_mlp2, intermediate_output2, NUM_FEATURES_SAFE);
+    inference_intermediate(&model3, featuresSafeness, std_mean_mlp3, std_scale_mlp3, intermediate_output3, NUM_FEATURES_SAFE);
+	// Last safeness MLP requires less features
+	inference_intermediate(&model4, featuresMPAA, std_mean_mlp4, std_scale_mlp4, intermediate_output4, NUM_FEATURES_MPAA);
+
+    // Copy results
+	static double mlp_output[50]; // Intermediate for 4 different MLPs
+    memcpy(mlp_output, intermediate_output1, sizeof(intermediate_output1));
+    memcpy(mlp_output + 9, intermediate_output2, sizeof(intermediate_output2));
+    memcpy(mlp_output + 12, intermediate_output3, sizeof(intermediate_output3));
+	memcpy(mlp_output + 30, intermediate_output4, sizeof(intermediate_output4));
+	
+    // Allocate temporary arrays with proper sizes for LSTM function call
+    double tensor_combined_input[50][1][4] = {0};
+    double tensor_mlp_output[1][50] = {0};
+
+    // Fill tensor_combined_input (concatenation of EFP and EPP)
+    for (int i = 0; i < 50; i++) {
+        for (int j = 0; j < 3; j++) {
+            tensor_combined_input[i][0][j] = efp_center[j][i];
+        }
+        tensor_combined_input[i][0][3] = epp_center[i];
+    }
+
+    // Fill tensor_mlp_output
+    for (int i = 0; i < 50; i++) {
+        tensor_mlp_output[0][i] = mlp_output[i];
+    }
+
+    // Predict safeness (binary classification: 0.0 - safe, 1.0 - unsafe)
+    double safeness_score = predictSafeness(tensor_combined_input, tensor_mlp_output);
+
+    // If the content is unsafe (safeness_score > 0.5), block it by returning 2.0
+    if (safeness_score > 0.5) {
+        return 2.0; // Special value indicating the content should be blocked
+    }
+
+    double mpaa_rating = inference(&mpaa_model, featuresMPAA, std_mean_mpaa, std_scale_mpaa, NUM_FEATURES_MPAA);
     return mpaa_rating; // Return the MPAA rating scale
 }
 

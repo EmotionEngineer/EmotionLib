@@ -23,6 +23,7 @@ SRC := main.c \
       src/mlp_model1.c \
       src/mlp_model2.c \
       src/mlp_model3.c \
+	  src/mlp_model4.c \
 	  src/lstm_filter_model.c \
 	  src/mlp_mpaa_model.c
 OBJ := $(SRC:.c=.o)

@@ -161,7 +161,7 @@ These models operate sequentially as follows:
 #### Example Training Notebooks  
 Explore notebooks for training these models:  
 - **LSTM Training for NSFW/Gore Detection**:  
-  [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train)  
+  [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features)  
 - **MLP Training for MPAA Rating Prediction**:  
   [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)  
 

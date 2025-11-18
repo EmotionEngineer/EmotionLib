@@ -556,7 +556,7 @@ int main() {
     double rating = predictSAMP(epp, efp);
 
     printf("------------------------------------------------\n");
-    printf("Result Rating Value: %f\n", rating); # Ref: 0.538838
+    printf("Result Rating Value: %f\n", rating); // Ref: 0.538838
     if (rating == 2.0) {
         printf("Status: UNSAFE (Blocked)\n");
     } else {

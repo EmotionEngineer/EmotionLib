@@ -1,5 +1,6 @@
 # EmotionLib
 ### Efficient Library for Media Content Analysis
+[![GitVerse Mirror](https://img.shields.io/badge/GitVerse-Mirror-blue?style=for-the-badge&logo=git&logoColor=white)](https://gitverse.ru/kill/emotionlib)
 
 ![Demo 1](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/1.png)
 ![Demo 2](https://raw.githubusercontent.com/EmotionEngineer/EmotionLib/master/Demo/2.png)
@@ -7,6 +8,14 @@
 **EmotionLib** is a robust C library designed for media content analysis. It identifies and blocks unsafe content while enhancing recommendations for safe media. By classifying content and analyzing emotional tone, solution provides deeper insights into media sentiment and ensures a safer, more engaging user experience.
 
 The library is optimized for high performance and compatibility with various architectures, including **x86_64**, **ARM**, and **E2K (Elbrus)**.
+
+---
+
+## 🏆 Awards & Mentions
+
+*   **BRICS Awards 2024**
+*   **Softpedia**: [Editor's Review](https://www.softpedia.com/get/Multimedia/Video/Video-Players/EmotionPlayer.shtml)
+*   **ITMO AI Showcase**: [Project Page](https://ai.itmo.ru/projects)
 
 ---
 
@@ -64,12 +73,12 @@ graph TD
         Q --> R[Final Safety Score<br/>Probability 0 to 1]
     end
     
-    style Input fill:#2d2d2d,stroke:#555,color:#fff
-    style Branch1 fill:#3d3d3d,stroke:#555,color:#fff
-    style Branch2 fill:#3d3d3d,stroke:#555,color:#fff
-    style FinalLayer fill:#3d3d3d,stroke:#555,color:#fff
-    style BaseEnsemble fill:#4d4d4d,stroke:#666,color:#fff
-    style NewNAS fill:#4d4d4d,stroke:#666,color:#fff
+    style Input fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style Branch1 fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+    style Branch2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style FinalLayer fill:#ffe0b2,stroke:#f57c00,stroke-width:2px
+    style BaseEnsemble fill:#ffffff,stroke:#666,stroke-dasharray: 5 5
+    style NewNAS fill:#ffffff,stroke:#666,stroke-dasharray: 5 5
 ```
 
 ### MLP Ensemble Architecture
@@ -139,6 +148,10 @@ The library uses a pure C implementation of neural network layers to ensure port
  */
 LIB_HIDDEN void node_filtermodel_stem_conv_Conv2D( const float x[1][3][224][224], const float w[32][3][3][3], const float bias[32], float y[1][32][112][112] )
 {
+    /* Conv
+     * auto_pad: NOTSET
+     * strides: 2 2 
+     */
     for( uint32_t b=0; b<1; b++ ) {
         for( uint32_t m=0; m<32; m++) {
             for( int32_t o0=0, i0=-1; o0<112; o0++, i0+=2) {
@@ -188,7 +201,7 @@ LIB_HIDDEN void node_filtermodel_stem_relu_Relu( const float X[1][32][112][112],
 ### 1. Comprehensive C Integration Tester
 A complete, compile-ready example `tester/main.c` is provided in the repository. This tester serves as:
 1.  **Integration Example**: Shows how to load DLLs/SOs and run the pipeline.
-2.  **Platform Validator**: Used to verify compatibility.
+2.  **Platform Validator**: Used to verify compatibility on **Elbrus** and **Baikal** platforms.
 3.  **Performance Benchmark**: Simulates long-running video processing.
 
 **Location:** [`tester/main.c`](https://github.com/EmotionEngineer/EmotionLib/blob/master/tester/main.c)
@@ -238,7 +251,7 @@ The core safety mechanism using LSTM and NAS-MLP ensembles.
 
 *   **Training Notebook:** [Kaggle: Filter Train (Additional Features)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features/)
 *   **Dataset:** [EmotionLib Media Filter Dataset (Extended Intermediate)](https://www.kaggle.com/datasets/saicourse/emotionlib-media-filter-dataset-extended-inter)
-    *   *Contains:* Pre-computed feature vectors from `filter` and `positiveness` for >6000 videos.
+    *   *Contains:* Pre-computed feature vectors from `filter` and `positiveness` for >8000 videos.
 
 ### 3. MPAA Rating Prediction
 Multiclass classification for G, PG, PG-13, R ratings.

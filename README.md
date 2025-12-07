@@ -199,26 +199,51 @@ LIB_HIDDEN void node_filtermodel_stem_relu_Relu( const float X[1][32][112][112],
 ## 🚀 Integration Examples
 
 ### 1. Comprehensive C Integration Tester
+
 A complete, compile-ready example `tester/main.c` is provided in the repository. This tester serves as:
-1.  **Integration Example**: Shows how to load DLLs/SOs and run the pipeline.
-2.  **Platform Validator**: Used to verify compatibility on **Elbrus** and **Baikal** platforms.
-3.  **Performance Benchmark**: Simulates long-running video processing.
+
+1. **Integration Example**: Shows how to load DLLs/SOs and run the pipeline.
+2. **Platform Validator**: Used to verify compatibility on **Elbrus** and **Baikal** platforms.
+3. **Performance Benchmark**: Simulates long-running video processing.
 
 **Location:** [`tester/main.c`](https://github.com/EmotionEngineer/EmotionLib/blob/master/tester/main.c)
 
 **Compilation:**
 ```bash
 # Linux / Elbrus / Baikal
-gcc tester/main.c -o tester -ldl -lpthread -lm
+cd tester
+gcc main.c -o tester -ldl -lpthread -lm
 
 # Windows (MinGW)
-gcc tester/main.c -o tester.exe
+cd tester
+gcc main.c -o tester.exe
+```
+
+**Preparing libraries for the tester:**
+```bash
+# Linux / Unix-like
+cp ../filter/filter.so          ./filter.so
+cp ../positiveness/positiveness.so ./positiveness.so
+cp ../samp/samp.so              ./samp.so
 ```
 
 **Running:**
 ```bash
-./tester
+./tester        # Linux / Elbrus / Baikal
+tester.exe      # Windows (MinGW)
 ```
+
+> The tester expects `filter`, `positiveness` and `samp` libraries
+> (`.so` / `.dylib` / `.dll`, depending on platform) to be located in
+> the **same directory** as the `tester` binary.
+
+If you see an error on Linux like:
+
+```text
+./tester: symbol lookup error: ./samp.so: undefined symbol: _ZGVbN2v_log
+```
+
+this usually means that `samp.so` was compiled against a **different (newer) glibc/libm/libmvec** than the one available on the **target system**. In this case, make sure to build **all three libraries** (`filter`, `positiveness`, `samp`) **directly on the target machine** (or in a container with the same glibc version), and then re‑run the tester.
 
 ### 2. C# / .NET Integration Snippets
 For .NET developers, use P/Invoke to call the unmanaged libraries.

@@ -477,35 +477,35 @@ Detailed build and usage instructions are available in the
 
 ## 🧪 Model Training & Reproducibility
 
-We provide Jupyter notebooks and datasets to reproduce the training of the classification heads.  
-*Note: The original raw video datasets are not distributed due to legal/safety restrictions. Feature extraction vectors are provided instead.*
+To ensure full transparency and reproducibility of the results, this repository **contains all necessary datasets and step-by-step training guides (Jupyter Notebooks)** required to train the classification models. *Note: The original raw video datasets are not distributed due to legal/safety restrictions. Feature extraction vectors are provided instead.*
 
-### 1. Emotional Analysis (Positiveness)
+You can run these notebooks locally or use the provided Kaggle mirrors for an interactive cloud environment.
 
-The `positiveness.dll` module achieves **99.58% Accuracy** and **0.9999 AUC** on validation, ensuring high‑precision emotional context detection.
+### 1. MPAA Rating Prediction (Rating System)
+*Predicts approximate MPAA ratings (`G`, `PG`, `PG‑13`, `R`) based on video analysis.*
 
-- **Training Notebook:**  
-  [Kaggle: EmotionLib Positiveness Train](https://www.kaggle.com/code/saicourse/emotionlib-positiveness-train)
-- **Accuracy:** >99% (validated on held‑out sets)
+- **📘 Step-by-Step Training Guide:**  
+  [notebooks/emotionlib-mpaa-train.ipynb](./notebooks/emotionlib-mpaa-train.ipynb)
+- **💾 Training Dataset:**  
+  [datasets/mpaa-ratings](./datasets/mpaa-ratings)
+- **☁️ Interactive Mirror:** [Kaggle: MPAA Train](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)
 
-### 2. Safety Filter (NSFW / Gore)
+### 2. Safety Filter (NSFW / Gore Classification)
+*Computes safety scores using an ensemble of LSTM and MLP models on extracted features.*
 
-The core safety mechanism uses an LSTM and NAS‑MLP ensembles over `.efp` / `.epp` features.
+- **📘 Step-by-Step Training Guide:**  
+  [notebooks/emotionlib-filter-train.ipynb](./notebooks/emotionlib-filter-train.ipynb)
+- **💾 Training Dataset:**  
+  [datasets/unsafe-filter](./datasets/unsafe-filter)  
+  *(Contains pre-computed feature vectors from >8000 videos)*
+- **☁️ Interactive Mirror:** [Kaggle: Filter Train](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features/)
 
-- **Training Notebook:**  
-  [Kaggle: Filter Train (Additional Features)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features/)
-- **Dataset:**  
-  [EmotionLib Media Filter Dataset (Extended Intermediate)](https://www.kaggle.com/datasets/saicourse/emotionlib-media-filter-dataset-extended-inter)  
-  *Contains:* Pre‑computed feature vectors from `filter` and `positiveness` for >8000 videos.
+### 3. Emotional Analysis (Positiveness)
+*Detects emotional tone with 99.58% accuracy on validation sets.*
 
-### 3. MPAA Rating Prediction
-
-Multiclass classification for approximate MPAA ratings: `G`, `PG`, `PG‑13`, `R`.
-
-- **Training Notebook:**  
-  [Kaggle: MPAA Train](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)
-- **Dataset:**  
-  [EmotionLib MPAA Rating Dataset](https://www.kaggle.com/datasets/saicourse/emotionlib-mpaa-rating-dataset)
+- **📘 Step-by-Step Training Guide:**  
+  [notebooks/emotionlib-positiveness-train.ipynb](./notebooks/emotionlib-positiveness-train.ipynb)
+- **☁️ Interactive Mirror:** [Kaggle: Positiveness Train](https://www.kaggle.com/code/saicourse/emotionlib-positiveness-train)
 
 ---
 

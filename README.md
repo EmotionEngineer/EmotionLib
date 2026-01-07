@@ -485,27 +485,24 @@ You can run these notebooks locally or use the provided Kaggle mirrors for an in
 *Predicts approximate MPAA ratings (`G`, `PG`, `PG‑13`, `R`) based on video analysis.*
 
 - **📘 Step-by-Step Training Guide:**  
-  [notebooks/emotionlib-mpaa-train.ipynb](./notebooks/emotionlib-mpaa-train.ipynb)
+  [Local Notebook](./notebooks/emotionlib-mpaa-train.ipynb) | [Interactive Mirror (Kaggle)](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)
 - **💾 Training Dataset:**  
-  [datasets/mpaa-ratings](./datasets/mpaa-ratings)
-- **☁️ Interactive Mirror:** [Kaggle: MPAA Train](https://www.kaggle.com/code/saicourse/emotionlib-mpaa-train)
+  [Local Directory](./datasets/mpaa-ratings) | [Kaggle Dataset](https://www.kaggle.com/datasets/saicourse/emotionlib-mpaa-rating-dataset)
 
 ### 2. Safety Filter (NSFW / Gore Classification)
 *Computes safety scores using an ensemble of LSTM and MLP models on extracted features.*
 
 - **📘 Step-by-Step Training Guide:**  
-  [notebooks/emotionlib-filter-train.ipynb](./notebooks/emotionlib-filter-train.ipynb)
+  [Local Notebook](./notebooks/emotionlib-filter-train.ipynb) | [Interactive Mirror (Kaggle)](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features/)
 - **💾 Training Dataset:**  
-  [datasets/unsafe-filter](./datasets/unsafe-filter)  
+  [Local Directory](./datasets/unsafe-filter) | [Kaggle Dataset](https://www.kaggle.com/datasets/saicourse/emotionlib-media-filter-dataset-extended-inter)  
   *(Contains pre-computed feature vectors from >8000 videos)*
-- **☁️ Interactive Mirror:** [Kaggle: Filter Train](https://www.kaggle.com/code/saicourse/emotionlib-filter-train-additional-features/)
 
 ### 3. Emotional Analysis (Positiveness)
 *Detects emotional tone with 99.58% accuracy on validation sets.*
 
 - **📘 Step-by-Step Training Guide:**  
-  [notebooks/emotionlib-positiveness-train.ipynb](./notebooks/emotionlib-positiveness-train.ipynb)
-- **☁️ Interactive Mirror:** [Kaggle: Positiveness Train](https://www.kaggle.com/code/saicourse/emotionlib-positiveness-train)
+  [Local Notebook](./notebooks/emotionlib-positiveness-train.ipynb) | [Interactive Mirror (Kaggle)](https://www.kaggle.com/code/saicourse/emotionlib-positiveness-train)
 
 ---
 
